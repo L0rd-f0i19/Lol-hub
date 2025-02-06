@@ -1,18 +1,1 @@
-local Library = loadstring(game:HttpGet("https://pastebin.com/raw/PfRstdAT"))()
-local Window = Library:MakeWindow({
-    Title = "Darkness hub 3.2 : Brookhaven",
-    SubTitle = "by Omar",
-    SaveFolder = false -- Save Configs on Player's Device
-})
-
-local Tab = Window:MakeTab({
-    Title = "⌯ Tab Informations",
-    Icon = "Home" -- See lib/Icons.lua
-})
-
-Tab:AddDiscordInvite({
-    Title = "Telegram",
-    Desc = "Join in our Telegram server", -- Optional
-    Logo = "rbxassetid://138722189612257", -- Optional, Icon
-    Invite = "https://t.me/DarknessHUB12" -- Telegram Invite's Link
-})
+.
