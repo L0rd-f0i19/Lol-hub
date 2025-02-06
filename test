@@ -1,1 +1,376 @@
-.
+local Library = loadstring(game:HttpGet("https://pastebin.com/raw/PfRstdAT"))()
+local Window = Library:MakeWindow({
+    Title = "Darkness hub 3.2 : Brookhaven",
+    SubTitle = "by Omar",
+    SaveFolder = false -- Save Configs on Player's Device
+})
+
+local Tab = Window:MakeTab({
+    Title = "∣| Tab Informations",
+    Icon = "Home" -- See lib/Icons.lua
+})
+Section = Tab:AddSection({
+    Title = "Info:"
+})
+Paragraph = Tab:AddParagraph({
+    Title = "Info",
+    Text = "Join Our server For More info about script&And get the Script"
+})
+
+Tab:AddDiscordInvite({
+    Title = "Telegram",
+    Desc = "Join in our Telegram server", -- Optional
+    Logo = "rbxassetid://138722189612257", -- Optional, Icon
+    Invite = "https://t.me/DarknessHUB12" -- Telegram Invite's Link
+})
+local Section = Tab:AddSection({
+    Title = "Info About Script:"
+})
+Paragraph = Tab:AddParagraph({
+Title = "Info",
+Text = "If u Got any Bug Type it in Our server and we will try to fix it"})
+
+Section = Tab:AddSection({
+    Title = "For Darkess Users:"
+})
+
+Paragraph = Tab:AddParagraph({
+Title = "Info",
+Text = "For Darkness Hub Users Thanks for using my script and i wish yall a good year"})
+
+ Tab = Window:MakeTab({
+    Title = "∣| Tab House",
+    Icon = "Home" -- See lib/Icons.lua
+})
+
+local colors = {
+    Color3.new(1, 0, 0),       -- Vermelho
+    Color3.new(0, 1, 0),       -- Verde
+    Color3.new(0, 0, 1),       -- Azul
+    Color3.new(1, 1, 0),       -- Amarelo
+    Color3.new(0, 1, 1),       -- Ciano
+    Color3.new(1, 0, 1)        -- Magenta
+}
+
+-- Variável para controlar o estado do toggle House RGB
+local isHouseRGBActive = false
+
+-- Função para alterar a cor da casa
+local function changeColor()
+    -- Pegue o serviço ReplicatedStorage e o remote event
+    local replicatedStorage = game:GetService("ReplicatedStorage")
+    local remoteEvent = replicatedStorage:WaitForChild("RE"):WaitForChild("1Player1sHous1e")
+
+    -- Loop infinito para mudar a cor a cada 0,5 segundos
+    while isHouseRGBActive do
+        for _, color in ipairs(colors) do
+            if not isHouseRGBActive then return end -- Se o toggle estiver desativado, sair do loop
+            local args = {
+                [1] = "ColorPickHouse",
+                [2] = color
+            }
+            remoteEvent:FireServer(unpack(args))
+            wait(0.8) -- Espera 0,5 segundos antes de mudar para a próxima cor
+        end
+    end
+end
+
+-- Função para iniciar ou parar a mudança de cor
+local function toggleHouseRGB(state)
+    isHouseRGBActive = state
+    if isHouseRGBActive then
+        print("House RGB Activated")
+        changeColor()
+    else
+        print("House RGB Deactivated")
+    end
+end
+
+local isUnbanActive = false -- Variável para controlar o estado do toggle
+
+Section = Tab:AddSection({
+    Title = "∣| House Roommate:"
+})
+Paragraph = Tab:AddParagraph({
+Title = "Enter Number",
+Text = "Between[1 ➔ 37]"})
+
+local playerName = "fgijvcdeool"  -- Default player name
+local numberValue = 11  -- Default number value
+
+TextBox = Tab:AddTextBox({
+Title = "House Number",
+Desc = "House Number To <font color='rgb(128, 0, 128)'>Roommate</font>", 
+Default = "", 
+PlaceholderText = "< Input >",
+ClearText = false, -- Optional, Clear old Input on focus
+Callback = function (Value)
+  numberValue = tonumber(Value) or 11  -- Update the numberValue variable with the input, default to 11 if invalid
+		print("Entered number value: " .. tostring(numberValue))
+	end
+})
+TextBox = Tab:AddTextBox({
+Title = "Put Player Name",
+Desc = "To <font color='rgb(128, 0, 128)'>Roommate</font>", 
+Default = "", 
+PlaceholderText = "",
+ClearText = false, -- Optional, Clear old Input on focus
+Callback = function (Value)
+playerName = Value  -- Update the playerName variable with the textbox input
+		print("Entered player name: " .. playerName)
+	end
+})
+local Button = Tab:AddButton({
+Title = "Give Roommate Permission To Selected Player",
+Desc = "", -- Optional
+Callback = function ()
+        		-- Find the player based on the input name
+		local player = game:GetService("Players"):FindFirstChild(playerName)
+
+		if player then
+			local args = {
+				[1] = "GivePermissionLoopToServer",
+				[2] = player,  -- Replace fgijvcdeool with the entered player name
+				[3] = numberValue  -- Replace 11 with the entered number value
+			}
+
+			-- Fire the event with the updated args
+			game:GetService("ReplicatedStorage").RE:FindFirstChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+			
+			print("Event fired for player: " .. playerName .. " with value: " .. tostring(numberValue))
+		else
+			print("Player not found.")
+		end
+	end
+})
+local Section = Tab:AddSection({
+    Title = "∣| Features:"
+})
+
+local toggleActive = false
+local function repeatRemote()
+while toggleActive do
+local args = {
+[1] = "PlayerWantsFireOnFirePassNotShowingAnyone"
+}
+
+game:GetService("ReplicatedStorage").RE:FindFirstChild("1Player1sHous1e"):FireServer(unpack(args))
+wait(0.1) -- intervalo de 1 segundo entre cada repetição
+end
+end
+
+local Toggle = Tab:AddToggle({
+Title = "loop fire",
+Desc = "", 
+Callback = function (value)
+toggleActive = value
+if toggleActive then
+repeatRemote()
+end
+end
+})
+
+local Button = Tab:AddButton({
+Title = "Fire On",
+Desc = "", -- Optional
+Callback = function ()
+      	local args = {
+    [1] = "PlayerWantsFireOnFirePassNotShowingAnyone"
+}
+
+game:GetService("ReplicatedStorage").RE:FindFirstChild("1Player1sHous1e"):FireServer(unpack(args))
+  	end    
+})
+
+local Button = Tab:AddButton({
+Title = "Fire Off",
+Desc = "", -- Optional
+Callback = function ()
+local args = {
+    [1] = "PlayerWantsFireOffFirePassNotShowingAnyone"
+}
+
+game:GetService("ReplicatedStorage").RE:FindFirstChild("1Player1sHous1e"):FireServer(unpack(args))
+  	end    
+})
+local Section = Tab:AddSection({
+    Title = "∣| Sell House:"
+})
+local Button = Tab:AddButton({
+Title = "Sell House",
+Desc = "", -- Optional
+Callback = function ()
+local args = {
+    [1] = "PlayerSellHouse"
+}
+
+game:GetService("ReplicatedStorage").RE:FindFirstChild("1Player1sHous1eChoic1e"):FireServer(unpack(args))
+   end
+})
+local Section = Tab:AddSection({
+    Title = "∣| Loop Features:"
+})
+local Toggle = Tab:AddToggle({
+Title = "∣|Colorful House",
+Desc = "", 
+Callback = function (state)
+toggleHouseRGB(state)
+    end
+})
+
+local toggleState = false
+local function toggleGarageDoor()
+while toggleState do
+local args = {
+[1] = "GarageDoor"
+}
+
+game:GetService("ReplicatedStorage").RE:FindFirstChild("1Player1sHous1e"):FireServer(unpack(args))
+wait(1) -- ajusta o tempo de espera conforme necessário
+end
+end
+
+local Toggle = Tab:AddToggle({
+Title = "Auto Garage",
+Desc = "", 
+Callback = function (value)
+toggleState = value
+if toggleState then
+toggleGarageDoor()
+end
+end
+})
+
+
+local toggleState = false
+local function togglePool()
+while toggleState do
+local args = {
+[1] = "PoolOnOff"
+}
+
+game:GetService("ReplicatedStorage").RE:FindFirstChild("1Player1sHous1e"):FireServer(unpack(args))
+wait(1) -- ajusta o tempo de espera conforme necessário
+end
+end
+
+local Toggle = Tab:AddToggle({
+Title = "Auto Pool",
+Desc = "", 
+Callback = function (value)
+toggleState = value
+if toggleState then
+togglePool()
+end
+end
+})
+
+local toggleState = false
+local function toggleCurtains()
+while toggleState do
+local args = {
+[1] = "Curtains"
+}
+
+game:GetService("ReplicatedStorage").RE:FindFirstChild("1Player1sHous1e"):FireServer(unpack(args))
+wait(1) -- ajusta o tempo de espera conforme necessário
+end
+end
+
+local Toggle = Tab:AddToggle({
+Title = "Auto Curtains",
+Desc = "", 
+Callback = function (value)
+toggleState = value
+if toggleState then
+toggleCurtains()
+end
+end
+})
+
+local Section = Tab:AddSection({
+    Title = "∣|UnBan From House:"
+})
+local Toggle = Tab:AddToggle({
+Title = "Auto UnBan From House",
+Desc = "", 
+Callback = function (state)
+isUnbanActive = state
+        if isUnbanActive then
+            print("Auto Unban Activated")
+            startAutoUnban()
+        else
+            print("Auto Unban Deactivated")
+        end
+    end
+})
+function startAutoUnban()
+    while isUnbanActive do
+        for i, v in pairs(game:GetService("Workspace"):WaitForChild("001_Lots"):GetDescendants()) do
+            -- houses
+            if v.Name == "BannedBlock1" or v.Name == "BannedBlock2" or v.Name == "BannedBlock3" or v.Name == "BannedBlock4" or v.Name == "BannedBlock5" or v.Name == "BannedBlock6" or v.Name == "BannedBlock7" or v.Name == "BannedBlock11" or v.Name == "BannedBlock12" or v.Name == "BannedBlock13" or v.Name == "BannedBlock14" or v.Name == "BannedBlock15" or v.Name == "BannedBlock16" or v.Name == "BannedBlock17" or v.Name == "BannedBlock18" or v.Name == "BannedBlock19" or v.Name == "BannedBlock20" or v.Name == "BannedBlock21" or v.Name == "BannedBlock21" or v.Name == "BannedBlock22" or v.Name == "BannedBlock23" or v.Name == "BannedBlock24" or v.Name == "BannedBlock30" or v.Name == "BannedBlock31" or v.Name == "BannedBlock32" or v.Name == "BannedBlock33" or v.Name == "BannedBlock34" or v.Name == "BannedBlock35" then                -- destroy
+                v:Destroy()
+            end
+        end
+        wait(1) -- Espera 5 segundos antes de repetir a verificação
+    end
+end
+local Section = Tab:AddSection({
+    Title = "∣|House music:"
+})
+
+-- Função para tocar música no carro
+local function playCarMusic(musicId)
+    if musicId and musicId ~= "" then
+        local carArgs = {
+            [1] = "PickingCarMusicText",
+            [2] = musicId
+        }
+        game:GetService("ReplicatedStorage").RE:FindFirstChild("1Player1sCa1r"):FireServer(unpack(carArgs))
+    else
+        print("Por favor, insira um ID de música válido.")
+    end
+end
+
+-- Função para tocar música no scooter
+local function playScooterMusic(musicId)
+    if musicId and musicId ~= "" then
+        local scooterArgs = {
+            [1] = "PickingScooterMusicText",
+            [2] = musicId
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1NoMoto1rVehicle1s"):FireServer(unpack(scooterArgs))
+    else
+        print("Por favor, insira um ID de música válido.")
+    end
+end
+
+-- Função para tocar música na casa
+local function playHouseMusic(musicId)
+    if musicId and musicId ~= "" then
+        local houseArgs = {
+            [1] = "PickHouseMusicText",
+            [2] = musicId
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Player1sHous1e"):FireServer(unpack(houseArgs))
+    else
+        print("Por favor, insira um ID de música válido.")
+    end
+end
+
+TextBox = Tab:AddTextBox({
+Title = "Music Id",
+Desc = "Enter Id Music(GamePass Music Required) ", 
+Default = "", 
+PlaceholderText = "< Input >",
+ClearText = false, -- Optional, Clear old Input on focus
+Callback = function (Value)
+playCarMusic(value)
+            playScooterMusic(value)
+            playHouseMusic(value)
+        end
+    })
+Tab = Window:MakeTab({
+    Title = "∣| Tab Avatar",
+    Icon = "Home" -- See lib/Icons.lua
+})
