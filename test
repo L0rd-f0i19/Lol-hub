@@ -6,10 +6,6 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 
-local Section = tool:AddSection({
- Name = "Equip Tool Functions"
-})
-
 cleartoolremote = game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clea1rTool1s")
 picktoolremote = game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l")
 
