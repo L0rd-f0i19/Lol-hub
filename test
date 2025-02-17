@@ -93,7 +93,7 @@ end
 local isUnbanActive = false -- Variável para controlar o estado do toggle
 
 Section = Tab:AddSection({
-    Title = "∣| House Roommate:"
+    Title = "House Roommate:"
 })
 Paragraph = Tab:AddParagraph({
 Title = "Enter Number",
