@@ -801,12 +801,11 @@ equiparItem("Taser")
 })
 
 Section = Tab:AddSection({Title = "Grip Tools Functions"})
-
 Button = Tab:AddButton({
 Title = "Long FireX",
 Desc = "", -- Optional
 Callback = function()
-		nametools = "long firex lel"
+      nametools = "long firex lel"
 MakeNotifi({
 Title = "Script" ,
 Text = "Duping Tools Please Wait!" ,
@@ -1949,7 +1948,6 @@ Button = Tab:AddButton({
 Title = "Long Box",
 Desc = "", -- Optional
 Callback = function()
-
 MakeNotifi({
 Title = "Script" ,
 Text = "Duping Tools Please Wait!" ,
